@@ -88,22 +88,26 @@ export default function PixifyAIFrontend() {
                 <Smile className="mr-2" size={20} />
                 MemeExtreme
               </Link>
-              <Link href="#" className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1">
+              <Link href="https://pixify-chat.vercel.app/" className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1">
                 <MessageSquare className="mr-2" size={20} />
                 LLM Chat
               </Link>
             </div>
             <div className="mb-4">
-              <h2 className="text-sm text-gray-400 mb-2">AI Editing</h2>
-              <Link href="#" className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg">
+              <h2 className="text-sm text-gray-400 mb-2">AI tools</h2>
+              <Link href="https://216.230.232.229:7860/" className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg">
                 <Scissors className="mr-2" size={20} />
-                Video Editor
+                Pixify Webui
               </Link>
             </div>
             <Link href="#" className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg">
               <FolderOpen className="mr-2" size={20} />
               My Assets
             </Link>
+              <Link href="https://www.pixifyai.art/" className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1">
+                <MessageSquare className="mr-2" size={20} />
+                AI Social
+              </Link>
           </nav>
           <div className="mt-auto">
             <Button variant="outline" size="sm" className="w-full">
@@ -145,7 +149,7 @@ export default function PixifyAIFrontend() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">AI Images</h3>
-              <p className="text-gray-400 mb-4">Powered by PIXIFY®</p>
+              <p className="text-gray-400 mb-4">InstaFlux Powered by Runware.io</p>
               <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
                 Get started
                 <ChevronRight size={20} />
@@ -153,7 +157,7 @@ export default function PixifyAIFrontend() {
             </Card>
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">AI Videos</h3>
-              <p className="text-gray-400 mb-4">Powered by PIXIFY®</p>
+              <p className="text-gray-400 mb-4">Powered by Klingai.com</p>
               <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
                 Get started
                 <ChevronRight size={20} />
@@ -161,7 +165,7 @@ export default function PixifyAIFrontend() {
             </Card>
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">Shorteezy</h3>
-              <p className="text-gray-400 mb-4">Quick AI-powered shorts</p>
+              <p className="text-gray-400 mb-4">Quick AI-powered Flux shorts with custom voices</p>
               <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
                 Create now
                 <ChevronRight size={20} />
@@ -169,7 +173,7 @@ export default function PixifyAIFrontend() {
             </Card>
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">MemeExtreme</h3>
-              <p className="text-gray-400 mb-4">AI meme generation</p>
+              <p className="text-gray-400 mb-4">AI meme generation 20 per min</p>
               <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
                 Generate memes
                 <ChevronRight size={20} />
@@ -177,7 +181,7 @@ export default function PixifyAIFrontend() {
             </Card>
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">LLM Chat</h3>
-              <p className="text-gray-400 mb-4">AI-powered conversation</p>
+              <p className="text-gray-400 mb-4">AI-powered conversations, 100+ models</p>
               <a
                 href="https://pixify-chat.vercel.app/"
                 target="_blank"
@@ -190,8 +194,18 @@ export default function PixifyAIFrontend() {
               </a>
             </Card>
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 rounded-lg">
-              <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">Video Editor</h3>
-              <p className="text-gray-400 mb-4">This feature is coming! We'll share with you soon.</p>
+              <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">Pixify Webui</h3>
+              <p className="text-gray-400 mb-4">Multi tool webui</p>
+              <a
+                href="https://216.230.232.229:7860/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
+                  Start Webui
+                  <ChevronRight size={20} />
+                </Button>
+              </a>
             </Card>
           </div>
 
@@ -228,7 +242,7 @@ export default function PixifyAIFrontend() {
                 { src: '/images/hades.webp', type: 'image', creator: 'Creator6', likes: 1920 },
                 { src: '/videos/smile.mp4', type: 'video', creator: 'Creator7', likes: 2223 },
                 { src: '/videos/will.mp4', type: 'video', creator: 'Creator8', likes: 2526 },
-                { src: '/videos/HulkCWalk.mp4', type: 'video', creator: 'Creator9', likes: 2829 },
+                { src: '/videos/gray.mp4', type: 'video', creator: 'Creator9', likes: 2829 },
                 { src: '/videos/darkbunny.mp4', type: 'video', creator: 'Creator10', likes: 3132 },
                 { src: '/images/canncreature.webp', type: 'image', creator: 'Creator11', likes: 3435 },
                 { src: '/videos/minipuff.mp4', type: 'video', creator: 'Creator12', likes: 3738 }
