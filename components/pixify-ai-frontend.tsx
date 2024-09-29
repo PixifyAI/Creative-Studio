@@ -52,7 +52,7 @@ export default function PixifyAIFrontend() {
       {/* Main Content */}
       <div className="relative z-10 flex w-full">
         {/* Sidebar */}
-        <aside className="w-64 bg-[#161b22] bg-opacity-60 backdrop-blur-md p-4 flex flex-col">
+        <aside className="w-64 bg-[#161b22] bg-opacity-60 backdrop-blur-md p-4 flex flex-col rounded-tr-lg rounded-br-lg"> 
           <div className="flex items-center mb-8">
             <svg className="w-8 h-8 mr-2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M50 0L93.3 25V75L50 100L6.7 75V25L50 0Z" fill="url(#gradient)" />
@@ -110,7 +110,7 @@ export default function PixifyAIFrontend() {
               </Link>
           </nav>
           <div className="mt-auto">
-            <Button variant="outline" size="sm" className="w-full">
+            <Button variant="outline" size="sm" className="w-full rounded-lg">
               Apply for API
             </Button>
           </div>
@@ -122,7 +122,7 @@ export default function PixifyAIFrontend() {
             <div></div>
             <div className="flex items-center">
               <span className="mr-4 text-[#8A2BE2]">🟣 66</span>
-              <Button variant="outline" size="sm" className="text-[#8A2BE2] border-[#8A2BE2] hover:bg-[#8A2BE2]/10">
+              <Button variant="outline" size="sm" className="text-[#8A2BE2] border-[#8A2BE2] hover:bg-[#8A2BE2]/10 rounded-md">
                 Purchase a membership plan to get credits
               </Button>
               <Button variant="ghost" size="icon" className="ml-2">
@@ -147,39 +147,48 @@ export default function PixifyAIFrontend() {
           </section>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
+            {/* AI Images Card */}
+            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg border border-gray-600/30 group">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">AI Images</h3>
               <p className="text-gray-400 mb-4">InstaFlux Powered by Runware.io</p>
-              <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
+              <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800"> 
                 Get started
                 <ChevronRight size={20} />
               </Button>
             </Card>
-            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
+
+            {/* AI Videos Card */}
+            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg border border-gray-600/30 group">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">AI Videos</h3>
               <p className="text-gray-400 mb-4">Powered by Klingai.com</p>
-              <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
+              <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
                 Get started
                 <ChevronRight size={20} />
               </Button>
             </Card>
-            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
+
+            {/* Shorteezy Card */}
+            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg border border-gray-600/30 group">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">Shorteezy</h3>
               <p className="text-gray-400 mb-4">Quick AI-powered Flux shorts with custom voices</p>
-              <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
+              <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
                 Create now
                 <ChevronRight size={20} />
               </Button>
             </Card>
-            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
+
+            {/* MemeExtreme Card */}
+            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg border border-gray-600/30 group">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">MemeExtreme</h3>
               <p className="text-gray-400 mb-4">AI meme generation 20 per min</p>
-              <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
+              <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
                 Generate memes
                 <ChevronRight size={20} />
               </Button>
             </Card>
-            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg">
+
+            {/* LLM Chat Card */}
+            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg border border-gray-600/30 group">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">LLM Chat</h3>
               <p className="text-gray-400 mb-4">AI-powered conversations, 100+ models</p>
               <a
@@ -187,13 +196,15 @@ export default function PixifyAIFrontend() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
+                <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
                   Start chatting
                   <ChevronRight size={20} />
                 </Button>
               </a>
             </Card>
-            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 rounded-lg">
+
+            {/* Pixify Webui Card */}
+            <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 rounded-lg border border-gray-600/30 group"> 
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">Pixify Webui</h3>
               <p className="text-gray-400 mb-4">Multi tool webui</p>
               <a
@@ -201,7 +212,7 @@ export default function PixifyAIFrontend() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md">
+                <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
                   Start Webui
                   <ChevronRight size={20} />
                 </Button>
@@ -214,20 +225,20 @@ export default function PixifyAIFrontend() {
               <div>
                 <Button
                   variant="link"
-                  className={activeTab === 'gallery' ? "text-[#8A2BE2]" : "text-gray-400"}
+                  className={activeTab === 'gallery' ? "text-[#8A2BE2] rounded-md px-3 py-2" : "text-gray-400 rounded-md px-3 py-2"}
                   onClick={() => setActiveTab('gallery')}
                 >
                   Gallery
                 </Button>
                 <Button
                   variant="link"
-                  className={activeTab === 'latest' ? "text-[#8A2BE2]" : "text-gray-400"}
+                  className={activeTab === 'latest' ? "text-[#8A2BE2] rounded-md px-3 py-2" : "text-gray-400 rounded-md px-3 py-2"}
                   onClick={() => setActiveTab('latest')}
                 >
                   Latest
                 </Button>
               </div>
-              <select className="bg-[#21262d] bg-opacity-60 backdrop-blur-md text-white px-2 py-1 rounded border border-gray-600">
+              <select className="bg-[#21262d] bg-opacity-60 backdrop-blur-md text-white px-2 py-1 rounded-md border border-gray-600">
                 <option>All</option>
               </select>
             </div>
@@ -257,7 +268,7 @@ export default function PixifyAIFrontend() {
                     <video
                       src={item.src}
                       alt={`Gallery video ${i + 1}`}
-                      className="object-cover w-full h-full"
+                      className="object-cover w-full h-full rounded-lg" 
                       autoPlay
                       loop
                       muted
@@ -266,12 +277,12 @@ export default function PixifyAIFrontend() {
                     <img
                       src={item.src}
                       alt={`Gallery image ${i + 1}`}
-                      className="object-cover w-full h-full"
+                      className="object-cover w-full h-full rounded-lg"
                     />
                   )}
 
                   {/* Overlay with details */}
-                  <div className="absolute bottom-0 left-0 w-full p-2 bg-black bg-opacity-50 text-white">
+                  <div className="absolute bottom-0 left-0 w-full p-2 bg-black bg-opacity-50 text-white rounded-bl-lg rounded-br-lg"> 
                     <div className="flex justify-between items-center">
                       <span className="text-sm">{item.creator}</span>
                       <div className="flex items-center">
