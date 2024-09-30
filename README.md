@@ -20,7 +20,7 @@ This repository contains the frontend code for PIXIFY AI, a next-generation AI c
 - **Apply for API:**
   - Developers can apply for access to the PIXIFY AI API.
 
-![Shorteezy](PixifyStudioUI.png)
+![Shorteezy](PixifyStudio.png)
 
 ## Technologies Used
 
