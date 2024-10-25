@@ -32,6 +32,37 @@
 .border-gray-600\/30 { /* The forward slash needs to be escaped */
   border: 1px solid rgba(75, 85, 99, 0.3); /* 30% opacity gray-600 color */
 }
+/* Chatbox styling */
+.chatbox {
+  z-index: 10; 
+}
+
+.messages {
+  word-break: break-word; 
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+}
+
+.user-message {
+  justify-content: flex-end; 
+}
+
+.user-message .sender {
+  order: 2; 
+  margin-left: 0.5rem;
+}
+
+.bot-message {
+  justify-content: flex-start;
+}
+
+.bot-message .sender {
+  order: 1; 
+  margin-right: 0.5rem;
+}
 @layer base {
   * {
     @apply border-border;

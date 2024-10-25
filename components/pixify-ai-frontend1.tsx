@@ -21,7 +21,7 @@ import {
   XCircle as XCircleIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'; 
 import * as THREE from 'three';
 import CELLS from 'vanta/dist/vanta.cells.min';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -202,7 +202,7 @@ export default function PixifyAIFrontend() {
       const options = {
         method: 'POST',
         headers: {
-          Authorization: 'Bearer YOUR_FISH_AUDIO_KEY',
+          Authorization: 'Bearer YOUR_FISH_AUDIO_KEY', 
           'Content-Type': 'multipart/form-data'
         },
         body: form
@@ -235,7 +235,7 @@ export default function PixifyAIFrontend() {
           'Authorization': `Bearer YOUR_LMSTUDIO_API_KEY`
         },
         body: JSON.stringify({
-          model: 'lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf',
+          model: 'lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/Meta-Llama-3.1-8B-Instruct-Q8_0.gguf', 
           messages: [
             { role: 'system', content: 'You are a helpful AI assistant.' },
             { role: 'user', content: text }
@@ -264,13 +264,13 @@ export default function PixifyAIFrontend() {
       const fishAudioResponse = await fetch('https://api.fish.audio/v1/tts', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer YOUR_FISH_AUDIO_KEY`,
+          'Authorization': `Bearer YOUR_FISH_AUDIO_KEY`, 
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           text: text,
-          reference_id: '1c3ea70a7b0b44639b1f97a16b4ef659',
-          audio_format: 'mp3'
+          reference_id: '1c3ea70a7b0b44639b1f97a16b4ef659', 
+          audio_format: 'mp3' 
         })
       });
 
@@ -299,19 +299,18 @@ export default function PixifyAIFrontend() {
 
       <aside
         className={`bg-[#161b22] bg-opacity-60 backdrop-blur-md p-4 flex flex-col rounded-tr-lg rounded-br-lg z-50 fixed top-0 left-0 h-full transform transition-transform duration-300 ease-in-out
-          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-          md:translate-x-0 md:static 
+           ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+           md:translate-x-0 md:static 
         `} 
       >
-        {/* Close Button (Mobile Only) - NOW PURPLE! */}
+        {/* Close Button (Mobile Only) */}
         <Button 
           onClick={() => setIsSidebarOpen(false)}
-          className="md:hidden absolute top-4 right-4 z-50 bg-[#8A2BE2] hover:bg-[#9370DB] text-white font-medium rounded-md px-3 py-2" 
+          className="md:hidden absolute top-4 right-4 z-50" 
         >
           <XCircleIcon size={20} /> 
         </Button>
 
-        {/* ... (Your Pixify AI Logo and heading)  */}
         <div className="flex items-center mb-8">
           <img
             src="/pixify.svg"
@@ -323,11 +322,8 @@ export default function PixifyAIFrontend() {
             PIXIFY AI
           </h1>
         </div>
-
-
-        {/* ... (Your navigation links - no changes needed here)  */} 
         <nav className="flex-1">
-          <Link href="/" className={`flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1 text-[#8A2BE2] ${router.pathname === '/' ? 'bg-[#21262d] bg-opacity-60 backdrop-blur-md' : ''}`}>
+          <Link href="/" className={`flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1 text-[#8A2BE2] ${router.pathname === '/' ? 'bg-[#21262d] bg-opacity-60 backdrop-blur-md' : ''}`}> 
             <Home className="mr-2" size={20} />
             Home
           </Link>
@@ -364,10 +360,6 @@ export default function PixifyAIFrontend() {
               <Terminal className="mr-2" size={20} />
               4g3nt c0d3r
             </Link>
-          <Link href="/voice-clone" className={`flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1 text-[#8A2BE2] ${router.pathname === '/ai-social' ? 'bg-[#21262d] bg-opacity-60 backdrop-blur-md' : ''}`}>
-            <MessageSquare className="mr-2" size={20} />
-            Voice Clone
-          </Link>
           </div>
           <Link href="/my-assets" className={`flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg text-[#8A2BE2] ${router.pathname === '/my-assets' ? 'bg-[#21262d] bg-opacity-60 backdrop-blur-md' : ''}`}>
             <FolderOpen className="mr-2" size={20} />
@@ -378,8 +370,6 @@ export default function PixifyAIFrontend() {
             AI Social
           </Link>
         </nav>
-
-        {/* ... (Apply for API button)  */} 
         <div className="mt-auto">
           <Button variant="outline" size="sm" className="w-full rounded-lg">
             Apply for API
@@ -389,12 +379,10 @@ export default function PixifyAIFrontend() {
 
       <div className="flex flex-col flex-1 md:pl-0 relative z-10"> 
         <header className="relative flex justify-between items-center p-4">
-          {/* Open Button (Mobile Only) - NOW PURPLE! */}
-          <Button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="md:hidden z-20 bg-[#8A2BE2] hover:bg-[#9370DB] text-white font-medium rounded-md px-3 py-2"> 
+          <Button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="md:hidden z-20">
             <Menu size={20} />
           </Button>
 
-          {/* ... (rest of your header content)  */}
           <div className="flex items-center ml-auto z-20">
             <span className="mr-4 text-[#8A2BE2]">🟣 66</span>
             <Button
@@ -411,22 +399,21 @@ export default function PixifyAIFrontend() {
           </div>
         </header>
 
-        {/* ... (your main content area)  */}
-          <main className="p-8 overflow-y-auto w-full mx-auto" style={{ scrollbarColor: '#161b22 transparent' }}>
+        <main className="p-8 overflow-y-auto w-full mx-auto" style={{ scrollbarColor: '#161b22 transparent' }}>
           <section className="mb-12 relative overflow-hidden text-center md:text-left">
             <h2 className="text-[#8A2BE2] mb-2 text-3xl md:text-4xl">PIXIFY AI, UNLEASH YOUR CREATIVITY</h2>
             <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-[#4B0082] to-[#0000FF] text-transparent bg-clip-text">
-              Your Vision, Endless Possibilities
+              Next-Generation AI Creative Studio
             </h1>
           </section>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg border border-gray-600/30 group">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">AI Images</h3>
-              <p className="text-gray-400 mb-4">InstaFlux Fast Affordable Creations</p>
+              <p className="text-gray-400 mb-4">InstaFlux Powered by Runware.io</p>
               <Link href="/ai-images">
                 <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
-                  Get Started
+                  Get started
                   <ChevronRight size={20} />
                 </Button>
               </Link>
@@ -434,10 +421,10 @@ export default function PixifyAIFrontend() {
 
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg border border-gray-600/30 group">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">AI Videos</h3>
-              <p className="text-gray-400 mb-4">Text & Image to Video Production</p>
+              <p className="text-gray-400 mb-4">Powered by Klingai.com</p>
               <Link href="/ai-videos">
                 <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
-                  Get Started
+                  Get started
                   <ChevronRight size={20} />
                 </Button>
               </Link>
@@ -452,7 +439,7 @@ export default function PixifyAIFrontend() {
                 rel="noopener noreferrer"
               >
                 <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
-                  Start Chatting
+                  Start chatting
                   <ChevronRight size={20} />
                 </Button>
               </a>
@@ -463,7 +450,7 @@ export default function PixifyAIFrontend() {
               <p className="text-gray-400 mb-4">AI meme generation 20 per min</p>
               <Link href="/meme-extreme">
                 <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
-                  Generate Memes
+                  Generate memes
                   <ChevronRight size={20} />
                 </Button>
               </Link>
@@ -471,7 +458,7 @@ export default function PixifyAIFrontend() {
 
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg border border-gray-600/30 group">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">Pixify Webui</h3>
-              <p className="text-gray-400 mb-4">Multi AI tool webui</p>
+              <p className="text-gray-400 mb-4">Multi tool webui</p>
               <a
                 href="https://216.230.232.229:7860/"
                 target="_blank"
@@ -486,10 +473,10 @@ export default function PixifyAIFrontend() {
 
             <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 rounded-lg border border-gray-600/30 group">
               <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">Shorteezy</h3>
-              <p className="text-gray-400 mb-4">AI-powered Flux shorts with Custom Voices</p>
+              <p className="text-gray-400 mb-4">Quick AI-powered Flux shorts with custom voices</p>
               <Link href="/shorteezy">
                 <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
-                  Create Now
+                  Create now
                   <ChevronRight size={20} />
                 </Button>
               </Link>
@@ -507,11 +494,11 @@ export default function PixifyAIFrontend() {
             </Card>
 
 <Card className="bg-[#21262d] bg-opacity-60 backdrop-blur-md p-6 hover:bg-opacity-80 transition-colors duration-300 rounded-lg border border-gray-600/30 group">
-              <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">Voice Clone</h3>
-              <p className="text-gray-400 mb-4">Clone Any Voice With 10-30 Second Clip</p>
-              <Link href="/voice-clone">
+              <h3 className="text-xl font-semibold mb-2 text-[#8A2BE2]">AI Social</h3>
+              <p className="text-gray-400 mb-4">Powered by Klingai.com</p>
+              <Link href="https://pixify-app-bs-projects-5791d096.vercel.app/">
                 <Button variant="ghost" className="w-full justify-between text-[#8A2BE2] hover:text-[#9370DB] rounded-md group-hover:bg-gray-800">
-                  Make a Voice
+                  Post or Scroll
                   <ChevronRight size={20} />
                 </Button>
               </Link>
@@ -601,13 +588,13 @@ export default function PixifyAIFrontend() {
               ))}
             </div>
           </section>
+
         </main>
         <div className="fixed top-24 right-16 z-20">
           <VoiceAuroraAI isSpeaking={isSpeaking} />
         </div>
       </div>
 
-      {/* ... (your microphone button)  */}
       <Button
         onClick={isRecording ? stopRecording : startRecording}
         className={`microphone-button fixed bottom-4 right-4 ${

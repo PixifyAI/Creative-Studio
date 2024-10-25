@@ -18,14 +18,16 @@ import {
   Heart,
 } from 'lucide-react';
 import Link from 'next/link';
-import * as THREE from 'three'; // Direct import
-import CELLS from 'vanta/dist/vanta.cells.min'; // Direct import
+import * as THREE from 'three';
+import CELLS from 'vanta/dist/vanta.cells.min';
 import Image from 'next/image';
-import axios from 'axios';
+import { Runware, IImageInference } from '@runware/sdk-js';
 
 // Replace with your actual API key
-const RUNWARE_API_KEY = 'NJcnXimLw8zmPcLgBsbLJ1qhWQKMuvro'; // Replace with your actual key
-// LMStudio API endpoint
+const RUNWARE_API_KEY = 'NJcnXimLw8zmPcLgBsbLJ1qhWQKMuvro';
+const runware = new Runware({ apiKey: RUNWARE_API_KEY });
+
+// LMStudio API endpoint (replace with actual endpoint if different)
 const LMSTUDIO_API_URL = "http://localhost:1234/v1";
 
 export default function MemeExtremePage() {
@@ -124,53 +126,28 @@ Generate 20 unique, funny, and relatable memes following this format and dont us
     setIsLoading(true);
     try {
       const memes = generatedQuotes.split('\n\n');
-      const generatedImages = await Promise.all(
-        memes.map(async (meme) => {
-          const match = meme.match(/^Narrator:\s*["](.*?)["]\s*\[(.*?)\]$/);
-          if (match) {
-            const [, text, description] = match;
-            const requestBody = {
-              positivePrompt: description,
-              model: "runware:100@1", // Or the correct model ID/name
-              numberResults: 1,
-              negativePrompt: "",
-              useCache: false,
-              height: 512,
-              width: 512,
-            };
-            const headers = {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${RUNWARE_API_KEY}`, // Replace with your actual auth method
-            };
-
-            const API_ENDPOINT = process.env.RUNWARE_API_ENDPOINT || 'https://api.runware.com/image'; // Replace with the actual API endpoint
-
-            const response = await axios.post(API_ENDPOINT, requestBody, {
-              headers,
-            });
-
-            if (response.status !== 200) {
-                const errorMessage = `Runware API request failed: ${response.status} ${response.statusText}`;
-                if (response.data && response.data.detail) {
-                  throw new Error(errorMessage + ' Detail:' + response.data.detail);
-                } else {
-                  throw new Error(errorMessage);
-                }
-              }
-
-            const data = response.data;
-            // Handle the API response and return the meme object
-            if (data.images && data.images.length > 0) {
-              return { text: text.trim(), imageUrl: data.images[0].imageUrl }; // Or the correct path/property for the image URL
-            }
+      const imagePromises = memes.map(async (meme) => {
+        const match = meme.match(/^Narrator:\s*["](.*?)["]\s*\[(.*?)\]$/);
+        if (match) {
+          const [, text, description] = match;
+          const request: IImageInference = {
+            positivePrompt: description,
+            model: "runware:100@1",
+            numberResults: 1,
+            negativePrompt: "",
+            useCache: false,
+            height: 512,
+            width: 512,
+          };
+          const images = await runware.imageInference(request);
+          if (images && images.length > 0) {
+            return { text: text.trim(), imageUrl: images[0].imageURL };
           }
-          return null;
-        })      );
-
-      // Filter out any null results
-      const validMemes = generatedImages.filter((meme): meme is { text: string; imageUrl: string } => meme !== null);
-      setGeneratedMemes(validMemes);
-
+        }
+        return null;
+      });
+      const generatedImages = (await Promise.all(imagePromises)).filter((meme): meme is { text: string; imageUrl: string } => meme !== null);
+      setGeneratedMemes(generatedImages);
     } catch (error) {
       console.error('Error generating meme images:', error);
     } finally {
@@ -188,19 +165,37 @@ Generate 20 unique, funny, and relatable memes following this format and dont us
         {/* Sidebar */}
         <aside className="w-64 bg-[#161b22] bg-opacity-60 backdrop-blur-md p-4 flex flex-col rounded-tr-lg rounded-br-lg">
           <div className="flex items-center mb-8">
-<div className="flex items-center mb-8">
-  <img 
-    src="/pixify.svg" 
-    alt="Pixify AI Logo" 
-    className="w-8 h-8 mr-2"
-    style={{ backgroundColor: 'transparent' }} 
-  /> 
-</div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-[#4B0082] to-[#0000FF] text-transparent bg-clip-text">PIXIFY AI</h1>
+            <svg
+              className="w-8 h-8 mr-2"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M50 0L93.3 25V75L50 100L6.7 75V25L50 0Z"
+                fill="url(#gradient)"
+              />
+              <defs>
+                <linearGradient
+                  id="gradient"
+                  x1="0"
+                  y1="0"
+                  x2="100"
+                  y2="100"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="#4B0082" />
+                  <stop offset="1" stopColor="#0000FF" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-[#4B0082] to-[#0000FF] text-transparent bg-clip-text">
+              PIXIFY AI
+            </h1>
           </div>
           <nav className="flex-1">
             <Link
-              href="http://localhost:3000/"
+              href="#"
               className="flex items-center p-2 bg-[#21262d] bg-opacity-60 backdrop-blur-md rounded-lg mb-2 text-[#8A2BE2]"
             >
               <Home className="mr-2" size={20} />
@@ -216,14 +211,14 @@ Generate 20 unique, funny, and relatable memes following this format and dont us
                 AI Images
               </Link>
               <Link
-                href="/ai-videos"
+                href="#"
                 className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1"
               >
                 <Video className="mr-2" size={20} />
                 AI Videos
               </Link>
               <Link
-                href="/shorteezy"
+                href="#"
                 className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1"
               >
                 <Zap className="mr-2" size={20} />
@@ -255,7 +250,7 @@ Generate 20 unique, funny, and relatable memes following this format and dont us
               </Link>
             </div>
             <Link
-              href="/my-assets"
+              href="#"
               className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg"
             >
               <FolderOpen className="mr-2" size={20} />
@@ -391,14 +386,3 @@ Generate 20 unique, funny, and relatable memes following this format and dont us
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-

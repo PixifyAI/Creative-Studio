@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
@@ -18,14 +18,16 @@ import {
   Heart,
 } from 'lucide-react';
 import Link from 'next/link';
-import * as THREE from 'three'; // Direct import
-import CELLS from 'vanta/dist/vanta.cells.min'; // Direct import
+import * as THREE from 'three';
+import CELLS from 'vanta/dist/vanta.cells.min';
 import Image from 'next/image';
-import axios from 'axios';
+import { Runware, IControlNet, ILora, ETaskType } from '@runware/sdk-js';
 
-const RUNWARE_API_KEY = 'NJcnXimLw8zmPcLgBsbLJ1qhWQKMuvro'; // **REPLACE WITH YOUR ACTUAL API KEY**
-const API_ENDPOINT = 'https://api.runware.ai/v1/image/generate'; // Runware API endpoint
+// **REPLACE THIS WITH YOUR ACTUAL API KEY:**
+const RUNWARE_API_KEY = 'NJcnXimLw8zmPcLgBsbLJ1qhWQKMuvro';
+const runware = new Runware({ apiKey: RUNWARE_API_KEY });
 
+// Example LoRA Model Data (replace with your actual LoRA data)
 const availableLoraModels = [
   { id: 'lora-model-1', name: 'LoRA Model A' },
   { id: 'lora-model-2', name: 'LoRA Model B' },
@@ -43,7 +45,7 @@ export default function AIAgesPage() {
   const [negativePrompt, setNegativePrompt] = useState('');
   const [width, setWidth] = useState(512);
   const [height, setHeight] = useState(512);
-  const [selectedModel, setSelectedModel] = useState('runware:100@1');
+  const [selectedModel, setSelectedModel] = useState('stable-diffusion');
   const [numberOfImages, setNumberOfImages] = useState(1);
   const [outputType, setOutputType] = useState<'URL' | 'base64Data' | 'dataURI'>('URL');
   const [outputFormat, setOutputFormat] = useState<'JPG' | 'PNG' | 'WEBP'>('JPG');
@@ -68,7 +70,7 @@ export default function AIAgesPage() {
   const [controlNetControlMode, setControlNetControlMode] = useState<'prompt' | 'controlnet' | 'balanced'>('balanced');
   
   // LoRA Settings:
-  const [loraModels, setLoraModels] = useState<any[]>([]); 
+  const [loraModels, setLoraModels] = useState<ILora[]>([]);
 
   // Vanta.js Effects:
   const vantaRef = useRef<HTMLDivElement>(null);
@@ -149,9 +151,19 @@ export default function AIAgesPage() {
   const handleGenerateImage = async () => {
     setIsLoading(true);
     try {
-      const controlNetParams: any[] = []; // Prepare controlNet parameters as needed
+      const controlNetParams: IControlNet[] = [];
+      if (controlNetModel && controlNetImage) {
+        controlNetParams.push({
+          model: controlNetModel,
+          guideImage: controlNetImage,
+          weight: controlNetWeight,
+          startStep: controlNetStartStep,
+          endStep: controlNetEndStep,
+          controlMode: controlNetControlMode,
+        });
+      }
 
-      const requestBody = {
+      const images = await runware.requestImages({
         positivePrompt: prompt,
         negativePrompt: negativePrompt,
         width: width,
@@ -162,7 +174,7 @@ export default function AIAgesPage() {
         outputFormat: outputFormat,
         uploadEndpoint: uploadEndpoint,
         checkNSFW: checkNSFW,
-        // seedImage: referenceImage, // Handle image upload as per Runware API docs
+        seedImage: referenceImage,
         strength: strength,
         steps: steps,
         scheduler: scheduler,
@@ -174,27 +186,16 @@ export default function AIAgesPage() {
         controlNet: controlNetParams,
         useCache: useCache,
         returnBase64Image: returnBase64Image,
-      };
+      });
 
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${RUNWARE_API_KEY}`, // Or other auth as per Runware API docs
-      };
-
-      const response = await axios.post(API_ENDPOINT, requestBody, { headers });
-
-      if (!response.ok) {
-        const errorMessage = `Runware API request failed: ${response.status} ${response.statusText}`;
-        if (response.data && response.data.detail) {
-          throw new Error(errorMessage + ' Detail:' + response.data.detail);
-        } else {
-          throw new Error(errorMessage);
-        }
+      // Handle different output types:
+      if (outputType === 'URL') {
+        setGeneratedImages(images.map((image: { imageURL?: string }) => image.imageURL || ''));
+      } else if (outputType === 'base64Data') {
+        setGeneratedImages(images.map((image: { imageBase64Data?: string }) => image.imageBase64Data || ''));
+      } else if (outputType === 'dataURI') {
+        setGeneratedImages(images.map((image: { imageDataURI?: string }) => image.imageDataURI || ''));
       }
-
-      const data = await response.data;
-      setGeneratedImages(data.images.map((image: any) => image.imageUrl)); 
-
     } catch (error) {
       console.error('Error during image generation:', error);
     } finally {
@@ -212,19 +213,37 @@ export default function AIAgesPage() {
         {/* Sidebar */}
         <aside className="w-64 bg-[#161b22] bg-opacity-60 backdrop-blur-md p-4 flex flex-col rounded-tr-lg rounded-br-lg">
           <div className="flex items-center mb-8">
-<div className="flex items-center mb-8">
-  <img 
-    src="/pixify.svg" 
-    alt="Pixify AI Logo" 
-    className="w-8 h-8 mr-2"
-    style={{ backgroundColor: 'transparent' }} 
-  /> 
-</div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-[#4B0082] to-[#0000FF] text-transparent bg-clip-text">PIXIFY AI</h1>
+            <svg
+              className="w-8 h-8 mr-2"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M50 0L93.3 25V75L50 100L6.7 75V25L50 0Z"
+                fill="url(#gradient)"
+              />
+              <defs>
+                <linearGradient
+                  id="gradient"
+                  x1="0"
+                  y1="0"
+                  x2="100"
+                  y2="100"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stopColor="#4B0082" />
+                  <stop offset="1" stopColor="#0000FF" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-[#4B0082] to-[#0000FF] text-transparent bg-clip-text">
+              PIXIFY AI
+            </h1>
           </div>
           <nav className="flex-1">
             <Link
-              href="http://localhost:3000/"
+              href="#"
               className="flex items-center p-2 bg-[#21262d] bg-opacity-60 backdrop-blur-md rounded-lg mb-2 text-[#8A2BE2]"
             >
               <Home className="mr-2" size={20} />
@@ -233,28 +252,28 @@ export default function AIAgesPage() {
             <div className="mb-4">
               <h2 className="text-sm text-gray-400 mb-2">AI Generation</h2>
               <Link
-                href="/ai-images"
+                href="#"
                 className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1"
               >
                 <ImageIcon className="mr-2" size={20} />
                 AI Images
               </Link>
               <Link
-                href="/ai-videos"
+                href="#"
                 className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1"
               >
                 <Video className="mr-2" size={20} />
                 AI Videos
               </Link>
               <Link
-                href="/shorteezy"
+                href="#"
                 className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1"
               >
                 <Zap className="mr-2" size={20} />
                 Shorteezy
               </Link>
               <Link
-                href="/meme-extreme"
+                href="#"
                 className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg mb-1"
               >
                 <Smile className="mr-2" size={20} />
@@ -279,7 +298,7 @@ export default function AIAgesPage() {
               </Link>
             </div>
             <Link
-              href="/my-assets"
+              href="#"
               className="flex items-center p-2 hover:bg-[#21262d] hover:bg-opacity-60 hover:backdrop-blur-md rounded-lg"
             >
               <FolderOpen className="mr-2" size={20} />
@@ -445,7 +464,7 @@ export default function AIAgesPage() {
                   value={selectedModel}
                   onChange={(e) => setSelectedModel(e.target.value)}
                 >
-                  <option value="runware:100@1">runware:100@1</option>
+                  <option value="stable-diffusion">Stable Diffusion</option>
                   {/* ... Add more model options if needed ... */}
                 </select>
               </div>
